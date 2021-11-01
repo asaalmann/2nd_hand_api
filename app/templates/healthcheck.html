@@ -1,0 +1,15 @@
+{% extends "layout/application.html" %}
+
+{% block title %}Healthcheck{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="card mt-5">
+        <h5 class="card-header">Healthcheck</h5>
+        <div class="card-body">
+            <p>Number of users in the data base: {{ user_count }}</p>
+            <p>Number of items in the data base: {{ item_count }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
