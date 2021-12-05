@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  2nd_hand_api_db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=start#123
+      - POSTGRES_DB=second_hand_api_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db/01-create-item-table.sql:/docker-entrypoint-initdb.d/01-create-item-table.sql
+  2nd_hand_api:
+    build:
+      context: .
+    ports:
+      - 5000:5000
+    depends_on:
+      - "2nd_hand_api_db"
