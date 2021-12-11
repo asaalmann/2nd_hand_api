@@ -1,5 +1,5 @@
-from app import db
-
+from . import db
+from flask import request
 
 class Item(db.Model):
     __tablename__ = 'items'
@@ -18,6 +18,24 @@ class Item(db.Model):
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+    def isValid(self):
+        if not (self.title and self.description and self.price and self.city):
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def fromJson(json):
+        return Item(json['title'], json['description'], json['price'], json['city'])
+
+    def save(self):
+        db.session.add(self)
+        db.session.flush()
+        db.session.refresh(self)
+        db.session.commit()
+        return self
+
 
     @staticmethod
     def filterByParams(params):
