@@ -4,6 +4,8 @@ from flask import render_template, make_response, jsonify, request
 
 from app.models import Item
 
+from sqlalchemy import and_
+
 
 @app.route("/healthcheck")
 def index():
@@ -13,11 +15,7 @@ def index():
 
 @app.route("/items", methods=["GET"])
 def getItems():
-    max_price = request.args.get('max_price')
-    if max_price:
-        items = Item.query.filter(Item.price <= max_price)
-    else:
-        items = Item.query.all()
+    items = Item.filterByParams(request.args.get('city'), request.args.get('max_price'))
     result = [
         {
             "id": item.id,

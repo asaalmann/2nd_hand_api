@@ -5,7 +5,9 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=start#123
+      - POSTGRES_DB=second_hand_api_db
     ports:
       - '5432:5432'
     volumes:
       - ./01-create-item-table.sql:/docker-entrypoint-initdb.d/01-create-item-table.sql
+      - ./99-seed.sql:/docker-entrypoint-initdb.d/99-seed.sql

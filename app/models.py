@@ -8,11 +8,25 @@ class Item(db.Model):
     title = db.Column(db.String)
     description = db.Column(db.String)
     price = db.Column(db.Integer)
+    city = db.Column(db.String)
 
-    def __init__(self, title, description, price):
+    def __init__(self, title, description, price, city):
         self.title = title
         self.description = description
         self.price = price
+        self.city = city
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+    @staticmethod
+    def filterByParams(city, max_price):
+        if city and max_price:
+            return Item.query.filter(Item.city == city).filter(Item.price <= max_price)
+        elif city:
+            return Item.query.filter(Item.city == city)
+        elif max_price:
+            return Item.query.filter(Item.price <= max_price)
+        else:
+            return Item.query.all()
+
