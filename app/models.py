@@ -20,7 +20,9 @@ class Item(db.Model):
         return '<id {}>'.format(self.id)
 
     @staticmethod
-    def filterByParams(city, max_price):
+    def filterByParams(params):
+        city = params.get('city')
+        max_price = params.get('max_price')
         if city and max_price:
             return Item.query.filter(Item.city == city).filter(Item.price <= max_price)
         elif city:

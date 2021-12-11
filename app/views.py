@@ -15,7 +15,7 @@ def index():
 
 @app.route("/items", methods=["GET"])
 def getItems():
-    items = Item.filterByParams(request.args.get('city'), request.args.get('max_price'))
+    items = Item.filterByParams(request.args)
     result = [
         {
             "id": item.id,
