@@ -1,5 +1,5 @@
 from . import db
-from flask import request
+from flask import request, jsonify
 
 class Item(db.Model):
     __tablename__ = 'items'
@@ -20,10 +20,7 @@ class Item(db.Model):
         return '<id {}>'.format(self.id)
 
     def isValid(self):
-        if not (self.title and self.description and self.price and self.city):
-            return False
-        else:
-            return True
+        return self.title and self.description and self.price and self.city
 
     @staticmethod
     def fromJson(json):

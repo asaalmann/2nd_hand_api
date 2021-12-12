@@ -21,7 +21,7 @@ def createItem():
     item = Item.fromJson(request.json)
     if item.isValid():
         item = item.save()
-        return make_response("new id is " + str(item.id), 200)
+        return make_response("new id is " + str(item.id), 201)
     else:
         return make_response("bad", 400)
 
